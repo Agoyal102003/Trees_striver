@@ -4,3 +4,17 @@
 3) Perfect Binary Tree -> all leaf nodes should be at the same level
 4) Balanced Binary Tree -> height of the tree should at max be log(n) where n is total number of nodes
 5) Degenerate Binary Tree -> Straight line( basically a linked list)
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+
+    Node(int x)
+    {
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};

@@ -22,7 +22,7 @@ public:
     }
 };
 
-// Approach 2 -> Iterative way
+// Approach 2 -> Iterative way -> using 2 stacks
 
 class Solution {
 public:
@@ -45,5 +45,44 @@ public:
             st2.pop();
         }
         return ans;
+    }
+};
+
+// Approach 3 -> Iterative way -> 1 stack
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postorder;
+        if(root==NULL) return postorder;
+        TreeNode* cur=root;
+        stack<TreeNode*> st;
+        while(cur!=NULL || !st.empty())
+        {
+            if(cur!=NULL)
+            {
+                st.push(cur);
+                cur=cur->left;
+            }
+            else{
+                auto temp=st.top()->right;
+                if(temp==NULL)
+                {
+                    temp=st.top();
+                    st.pop();
+                    postorder.push_back(temp->val);
+                    while(!st.empty() && temp==st.top()->right)
+                    {
+                        temp=st.top();
+                        st.pop();
+                        postorder.push_back(temp->val);
+                    }
+                }
+                else{
+                    cur=temp;
+                }
+            }
+        }
+        return postorder;
     }
 };

@@ -1,0 +1,57 @@
+left boundary excluding leaf nodes
+leaf nodes
+right boundary excluding leaf nodes
+
+bool isLeaf(TreeNode* node) {
+        return (node->left == NULL && node->right == NULL);
+    }
+
+    void addLeftBoundary(TreeNode* root, vector<int>& result)
+    {
+        TreeNode* cur=root->left;
+        while(cur)
+        {
+            if(!isLeaf(cur)) result.push_back(cur->val);
+            if(cur->left) cur=cur->left;
+            else cur=cur->right;
+        }
+    }
+
+    void addLeaves(TreeNode* root, vector<int>& result)
+    {
+        if(isLeaf(root))
+        {
+            result.push_back(root->val);
+            return;
+        }
+
+        if(root->left) addLeaves(root->left, result);
+        if(root->right) addLeaves(root->right, result);
+    }
+
+    void addRightBoundary(TreeNode* root, vector<int>& result)
+    {
+        TreeNode* cur=root->right;
+        vector<int> temp;
+        while(cur)
+        {
+            if(isLeaf(cur)) temp.push_back(cur->val);
+            if(cur->left) cur=cur->left;
+            else cur=cur->left;
+        }
+        for(int i=temp.size()-1; i>=0; i--)
+        {
+            result.push_back(temp[i]);
+        }
+    }
+
+    vector<int> printBoundary(TreeNode* root)
+    {
+        vector<int> result;
+        if(root==NULL) return result;
+        if(!isLeaf(root)) result.push_back(root->val);
+        addLeftBoundary(root, result);
+        addLeaves(root, result);
+        addRightBoundary(root, result);
+        return result;
+    }

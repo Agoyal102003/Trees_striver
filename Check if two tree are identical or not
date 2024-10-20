@@ -1,0 +1,48 @@
+// write any traversal and if that's identical then tree's are also identical
+like check both of their inorder
+
+// Approach 1 -> Recursive way -> This approach might not work for some case like 
+p = [2,2,2,null,2,null,null,2]
+q = [2,2,2,2,null,2,null]
+In this values are all same but structure is not same and hence it will show true but the correct answer is false. so we need to go to another approach 
+
+void inorder(TreeNode* root, stack<int> &st)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        inorder(root->left, st);
+        st.push(root->val);
+        inorder(root->right, st);
+    }
+
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==NULL || q==NULL) return (p==q);
+        stack<int> st1, st2;
+        inorder(p, st1);
+        inorder(q, st2);
+        while(!st1.empty())
+        {
+            if (st2.empty() || st1.top() != st2.top()) {  
+                return false;
+            }
+            st1.pop();
+            st2.pop();
+        }
+
+        return st2.empty();
+    }
+
+// Approach 2 ->
+
+lass Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==NULL || q==NULL)
+        {
+            return (p==q);
+        }
+        return (p->val==q->val) && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    }
+};

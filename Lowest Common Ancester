@@ -1,0 +1,34 @@
+// Approach 1-> 
+find path to node from root for the both the nodes given. the  compare.
+
+eg path 1 = [1, 2, 4]
+path 2= [1, 2, 3, 5]
+lowest common ancestor of 4 and 5 will be 2 as 1 and 2 is common after that path is not same
+
+but this is time taking and space taking 
+
+// Approach 2 ->
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL || root==p || root==q)
+        {
+            return root;
+        }
+        TreeNode* left= lowestCommonAncestor(root->left, p, q);
+        TreeNode* right= lowestCommonAncestor(root->right, p, q);
+
+        if(left==NULL)
+        {
+            return right;
+        }
+        else if(right==NULL)
+        {
+            return left;
+        }
+        else{
+            return root;
+        }
+    }
+};

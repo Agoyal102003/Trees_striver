@@ -1,0 +1,28 @@
+// Approach 1
+
+bool getPath(Node* root, int B, vector<int>& ans)
+    {
+        if(!root) return false;
+        
+        ans.push_back(root->val);
+        
+        if(root->val ==B)
+        {
+            return true;
+        }
+        
+        if(getPath(root->left, B, ans) || getPath(root->right, B, ans))
+        return true;
+        
+        ans.pop_back();
+        return false;
+    }
+  
+    vector<int> Paths(Node* root, int B)
+    {
+        vector<int> ans;
+        if(root==NULL) return ans;
+        
+        getPath(root, B, ans);
+        return ans;
+    }

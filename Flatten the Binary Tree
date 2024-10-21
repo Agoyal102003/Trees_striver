@@ -1,0 +1,30 @@
+Preorder to linked list is the Flatten version of the binary tree
+
+// Approach 1 ->
+
+class Solution {
+public:
+    void preorder(TreeNode* root, vector<int>& ans)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        ans.push_back(root->val);
+        preorder(root->left, ans);
+        preorder(root->right, ans);
+    }
+
+    void flatten(TreeNode* root) {
+        vector<int> ans;
+        preorder(root, ans);
+        TreeNode* temp=new TreeNode(ans[0]);
+        for(int i=1; i<ans.size(); i++)
+        {
+            temp->right=new TreeNode(ans[i]);
+            temp=temp->right;
+        }
+        root=temp;
+        return;
+    }
+};
